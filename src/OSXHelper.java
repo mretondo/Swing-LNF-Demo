@@ -10,6 +10,7 @@ import static javax.swing.SwingUtilities.invokeLater;
 
 /**
  * OSXHelper class - Tools to facilitate setting Mac menu and dock Programmatically
+ * but starts new process so it's hard to debug the app
  */
 public class OSXHelper {
 
