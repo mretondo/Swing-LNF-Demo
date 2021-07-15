@@ -31,7 +31,6 @@ public class Main {
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
                 System.setProperty("com.apple.mrj.application.apple.menu.about.name", APPLICATION_NAME);
                 System.setProperty("apple.awt.application.name", APPLICATION_NAME);
-//                OSXHelper.setMacMenuAboutNameAndDockIcon(null, APPLICATION_NAME, APPLICATION_ICON);
 
                 // quits app the same way as if you closed main window i.e. it
                 // does a dispose() on the window instead of a System.exit()
