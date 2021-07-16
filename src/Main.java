@@ -37,9 +37,9 @@ public class Main {
         isWindows   = osType == OSInfo.OSType.WINDOWS;
         isLinux     = osType == OSInfo.OSType.LINUX;
 
-        isMacOS     = false;//osType == OSInfo.OSType.MACOSX;
-        isWindows   = false;//osType == OSInfo.OSType.WINDOWS;
-        isLinux     = true;//osType == OSInfo.OSType.LINUX;
+//        isMacOS     = false;
+//        isWindows   = false;
+//        isLinux     = true;
 
         try {
             if (isMacOS) {
@@ -75,7 +75,7 @@ public class Main {
             }
 
             // use same font on all platforms
-            setUIFont(new javax.swing.plaf.FontUIResource("System Font", Font.PLAIN, 12));
+//            setUIFont(new javax.swing.plaf.FontUIResource("System Font", Font.PLAIN, 12));
         } catch (Exception e) {
             e.printStackTrace();
         }
