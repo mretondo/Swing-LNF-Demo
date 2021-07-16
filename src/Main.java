@@ -5,6 +5,8 @@ import sun.awt.OSInfo;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import java.util.Enumeration;
+import java.util.stream.Collectors;
 
 public class Main {
     static final String APPLICATION_NAME = "LNF Demo";
@@ -13,6 +15,17 @@ public class Main {
     static boolean isMacOS;      //osName.contains("os x");
     static boolean isWindows;    //osName.contains("windows");
     static boolean isLinux;      //osName.contains("linux");
+
+    public static void setUIFont (javax.swing.plaf.FontUIResource fontUIResource) {
+        Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get (key);
+
+            if (value instanceof javax.swing.plaf.FontUIResource)
+                UIManager.put (key, fontUIResource);
+        }
+    }
 
     /**
      * Launch the application.
@@ -23,6 +36,10 @@ public class Main {
         isMacOS     = osType == OSInfo.OSType.MACOSX;
         isWindows   = osType == OSInfo.OSType.WINDOWS;
         isLinux     = osType == OSInfo.OSType.LINUX;
+
+        isMacOS     = false;//osType == OSInfo.OSType.MACOSX;
+        isWindows   = false;//osType == OSInfo.OSType.WINDOWS;
+        isLinux     = true;//osType == OSInfo.OSType.LINUX;
 
         try {
             if (isMacOS) {
@@ -36,17 +53,18 @@ public class Main {
                 // does a dispose() on the window instead of a System.exit()
                 Application.getApplication().setQuitStrategy(QuitStrategy.CLOSE_ALL_WINDOWS);
 
-                // Note: Toolkit.getDefaultToolkit() has to come after theSystem.setProperty(...)
-                // or application menu name won't get set
-                Toolkit toolkit = Toolkit.getDefaultToolkit();
-
                 // loading an image from a file
                 final URL imageResource = Main.class.getClassLoader().getResource(APPLICATION_ICON);
-                final Image image = toolkit.getImage(imageResource);
+                final Image image = Toolkit.getDefaultToolkit().getImage(imageResource);
                 Application.getApplication().setDockIconImage(image);
 
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } else if (isWindows) {
+                // loading an image from a file
+                final URL imageResource = Main.class.getClassLoader().getResource(APPLICATION_ICON);
+                final Image image = Toolkit.getDefaultToolkit().getImage(imageResource);
+                Application.getApplication().setDockIconImage(image);
+
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             } else if (isLinux) {
                 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
@@ -55,6 +73,9 @@ public class Main {
                 // default LookAndFeel
                 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             }
+
+            // use same font on all platforms
+            setUIFont(new javax.swing.plaf.FontUIResource("System Font", Font.PLAIN, 12));
         } catch (Exception e) {
             e.printStackTrace();
         }
