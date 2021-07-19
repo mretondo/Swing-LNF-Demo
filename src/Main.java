@@ -70,8 +70,7 @@ public class Main {
 
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             } else if (isSolaris) {
-                UIManager.setLookAndFeel("javax.swing.plaf.motif.MetalLookAndFeel");
-                UIManager.put("swing.boldMetal", Boolean.FALSE);
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
             } else if (isLinux) {
                 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
                 UIManager.put("swing.boldMetal", Boolean.FALSE);
