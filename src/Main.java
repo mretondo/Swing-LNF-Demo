@@ -15,6 +15,7 @@ public class Main {
     static boolean isMacOS;      //osName.contains("os x");
     static boolean isWindows;    //osName.contains("windows");
     static boolean isLinux;      //osName.contains("linux");
+    static boolean isSolaris;    //osName.contains("solaris");
 
     public static void setUIFont (javax.swing.plaf.FontUIResource fontUIResource) {
         Enumeration<Object> keys = UIManager.getDefaults().keys();
@@ -35,10 +36,12 @@ public class Main {
 
         isMacOS     = osType == OSInfo.OSType.MACOSX;
         isWindows   = osType == OSInfo.OSType.WINDOWS;
+        isSolaris   = osType == OSInfo.OSType.SOLARIS;
         isLinux     = osType == OSInfo.OSType.LINUX;
 
 //        isMacOS     = false;
 //        isWindows   = false;
+//        isSolaris   = false;
 //        isLinux     = true;
 
         try {
@@ -66,16 +69,20 @@ public class Main {
                 Application.getApplication().setDockIconImage(image);
 
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            } else if (isSolaris) {
+                UIManager.setLookAndFeel("javax.swing.plaf.motif.MetalLookAndFeel");
+                UIManager.put("swing.boldMetal", Boolean.FALSE);
             } else if (isLinux) {
                 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
                 UIManager.put("swing.boldMetal", Boolean.FALSE);
             } else {
                 // default LookAndFeel
                 UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+                UIManager.put("swing.boldMetal", Boolean.FALSE);
             }
 
             // use same font on all platforms
-//            setUIFont(new javax.swing.plaf.FontUIResource("System Font", Font.PLAIN, 12));
+            setUIFont(new javax.swing.plaf.FontUIResource("Tahoma", Font.PLAIN, 12));
         } catch (Exception e) {
             e.printStackTrace();
         }
