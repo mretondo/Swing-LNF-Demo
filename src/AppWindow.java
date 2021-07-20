@@ -1,33 +1,44 @@
-import sun.awt.OSInfo;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 
 /**
  * OSXHelper class demo.
  */
-public class AppWindow extends JFrame {
-
+public class AppWindow extends JFrame
+{
     /**
      * Create the application.
      */
-    public AppWindow(String[] args) {
+    public AppWindow(String[] args)
+    {
         initialize(args);
     }
 
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize(String[] args) {
-        try {
-            if (Main.isMacOS) {
+    private void initialize(String[] args)
+    {
+        try
+        {
+            if (Main.isMacOS)
+            {
                 // Generate and register the OSXAdapter, passing it a hash of all the methods we wish to
                 // use as delegates for various com.apple.eawt.ApplicationListener methods
                 OSXAdapter.setAboutHandler(this, getClass().getDeclaredMethod("showAboutDialog", (Class<?>[]) null));
                 OSXAdapter.setQuitHandler(this, getClass().getDeclaredMethod("exit", (Class<?>[]) null));
             }
-        } catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException e)
+        {
             System.exit(1);
         }
 
@@ -45,7 +56,9 @@ public class AppWindow extends JFrame {
 
         JMenuItem mItemDoSomething = new JMenuItem("Do Something");
         mItemDoSomething.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        mItemDoSomething.addActionListener(event -> {handleDoSomething();});
+        mItemDoSomething.addActionListener(event -> {
+            handleDoSomething();
+        });
         mItemDoSomething.setEnabled(true);
 
         mFile.add(mItemDoSomething);
@@ -57,14 +70,17 @@ public class AppWindow extends JFrame {
         JButton btnDoSomething = new JButton("Do Something");
         btnDoSomething.setPreferredSize(new Dimension(40, btnDoSomething.getPreferredSize().height));
         btnDoSomething.setEnabled(true);
-        btnDoSomething.addActionListener(event -> {handleDoSomething();});
+        btnDoSomething.addActionListener(event -> {
+            handleDoSomething();
+        });
 
         getContentPane().add(btnDoSomething, BorderLayout.SOUTH);
 
 //        frame.pack();
 
         // Window & Linux Menu Items
-        if (!OSXHelper.IS_MAC) {
+        if (!OSXHelper.IS_MAC)
+        {
             JMenuItem mItemExit = new JMenuItem("Exit");
             mItemExit.addActionListener(e -> exit());
             mItemExit.setMnemonic('E');
@@ -77,7 +93,8 @@ public class AppWindow extends JFrame {
         }
     }
 
-    private void handleDoSomething() {
+    private void handleDoSomething()
+    {
         Toolkit.getDefaultToolkit().beep();
     }
 
@@ -86,7 +103,8 @@ public class AppWindow extends JFrame {
      *
      * @return always true
      */
-    protected boolean exit() {
+    protected boolean exit()
+    {
 //        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
         return true;
     }
@@ -94,7 +112,8 @@ public class AppWindow extends JFrame {
     /**
      * Display the about dialog
      */
-    protected void showAboutDialog() {
+    protected void showAboutDialog()
+    {
         JOptionPane.showMessageDialog(this, Main.APPLICATION_NAME, "About", JOptionPane.INFORMATION_MESSAGE);
     }
 }
